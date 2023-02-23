@@ -3,7 +3,7 @@
 extern patient *c;
 void main()
 {
-//	add_patient();
+	//add_patient();
 	int n; //number of records
 	patient *c = read_patient(&n);
 	for (int i = 0; i < n; i++) {
