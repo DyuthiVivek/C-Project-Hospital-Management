@@ -6,3 +6,4 @@ patient_fns.c : 1. definition of struct with patient details
 
 create_presc.c : 1. read medicine names and check it present in pharmacy and write into a prescription file
                  2. read advice from doctor and add to the prescription
+                 3. returns name of prescription file
