@@ -1,26 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-typedef struct patient{
-	char name[30]; 
-	char phone_no[12];
-	int age;
-	char gender[2];
-	char e_contact_name[30];
-	char e_contact_phone[12];
-	char history_file[34]; //name of file which contains history of patient's illness
-	char presc_file[40]; //name of file with list of precription files
-} patient;
+#include <patient_fns.h>
 
 void add_patient()
 {
 	FILE *fp;
 	patient a,b;
-	char history_file[34]; //name of history file
+	char history_file[35]; //name of history file
 	char buf[1000];
 	
-
 	fp = fopen("patient_details.bin","ab+"); //opening in append mode
 	printf("Enter name\n");
 	scanf("%s",a.name);
@@ -46,7 +35,6 @@ void add_patient()
 	scanf("%s",a.e_contact_phone);
 	getchar();
 
-
 	printf("Enter previous medical history\n"); 
 	strcpy(history_file,a.name);//copying patient name
 	strcat(history_file,&a.phone_no[6]); //copying last 4 digits of phone number
@@ -62,7 +50,7 @@ void add_patient()
 	
 patient *read_patient(int *no_of_rec)
 {
-	FILE* fp;
+	FILE *fp;
 	patient *c; //array of struct patient
 	fp = fopen("patient_details.bin", "rb");
 	fseek(fp, 0L, SEEK_END); //moving file pointer to end
@@ -75,4 +63,14 @@ patient *read_patient(int *no_of_rec)
 	return c;
 }
 
-
+int check_patient(char p[30])
+{
+	int n;
+	patient *c = read_patient(&n);
+	for(int i=0; i<n ; i++)
+	{
+		if(strcmp(p,c[i].name)==0)
+			return 1;
+	}
+	return 0;
+}
