@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <patient_fns.h>
 
-extern patient *c;
 
 char *create_presc()
 {
@@ -36,6 +35,7 @@ char *create_presc()
 	getchar();
 	dis[10] = '\0';
 	strcpy(c[i].presc_file,c[i].name);
+	strcat(c[i].presc_file,"_"); 
 	strcat(c[i].presc_file,dis); //name of prescription file will contain patient name and disease
 
 	FILE *f = fopen(c[i].presc_file,"w"); 
@@ -53,6 +53,8 @@ char *create_presc()
 	fputs(adv,f);
 	fclose(f);
 	return c[i].presc_file;
+
+
 }
 
 void main()

@@ -55,12 +55,29 @@ patient *read_patient(int *no_of_rec)
 	fp = fopen("patient_details.bin", "rb");
 	fseek(fp, 0L, SEEK_END); //moving file pointer to end
 	size_t size = ftell(fp); //finding the size of file
+	if(size==0)
+	{
+		printf("No records found\n");
+		return NULL;
+	}
 	fseek(fp, 0L, SEEK_SET); //moving file pointer to beginning
 	c = (patient *)malloc(size); //allocating memory for the array
 	*no_of_rec = size/sizeof(patient); //number of records in the file
 	fread(c,sizeof(patient),*no_of_rec,fp); //reading into the array
     	fclose(fp);
 	return c;
+}
+
+patient read_specific_patient(patient *c, int no_of_rec, char name[30])
+{
+	int i=0;
+	for(; i< no_of_rec; i++)
+	{
+		if(strncmp(c[i].name,name,strlen(name))==0)
+		{
+			return c[i];
+		}
+	}
 }
 
 int check_patient(char p[30])
@@ -74,3 +91,10 @@ int check_patient(char p[30])
 	}
 	return 0;
 }
+
+
+
+// update patient
+// delete patient
+// return specific patient
+// print specific patient
