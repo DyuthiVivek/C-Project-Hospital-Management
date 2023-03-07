@@ -1,3 +1,5 @@
+//find all patient functions here
+
 typedef struct patient{
 	char name[30]; 
 	char phone_no[15];

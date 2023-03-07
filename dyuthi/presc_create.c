@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <patient_fns.h>
+#include <presc_fns.h>
 
 
 char *create_presc()
@@ -12,6 +13,7 @@ char *create_presc()
 	char adv[1000];
 	int n,flag = 0;
 	int i=0;
+
 	printf("Enter patient name\n"); //reading patient name 
 	scanf("%s",name);
 
