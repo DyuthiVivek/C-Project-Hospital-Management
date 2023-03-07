@@ -21,6 +21,7 @@ void retrievedept(struct employee * head,char ddept[30]);
 void retrieveemail(struct employee * head,char demail[30]);
 void retrievesalary(struct employee* head,float dsalary);
 void retrievephone(struct employee* head,long int dphone);
+struct employee * retrieveid1(struct employee * head,int did);
 struct employee * deletebyname(struct employee * head, char dname[30]);
 struct employee * read();
 struct employee * updatename(struct employee * head,int did, char dnameaf[30]);
