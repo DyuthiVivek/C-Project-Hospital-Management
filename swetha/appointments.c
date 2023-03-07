@@ -31,7 +31,6 @@ void apptmenu(char phone_number[]) {
         printf("2. View Appointments\n");
         printf("3. Reschedule Appointment\n");
         printf("4. Cancel Appointment\n");
-        printf("5. List Appointments for Doctor\n");
         printf("0. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -79,9 +78,24 @@ void book_appointment(char phone_number[]) {
     scanf(" %[^\n]s", appointment.doctor_name);
     printf("Enter the appointment date (dd/mm/yyyy): ");
     scanf("%s", appointment.date);
-    printf("Enter the appointment time: ");
+    char *a[]={"11:00AM-11:30AM","11:30AM-12:00PM","12:00PM-12:30PM","12:30PM-1:00PM","1:00PM-1:30PM","1:30PM-2:00PM","2:00PM-2:30PM","2:30PM-3:00PM","3:00PM-3:30PM","3:30PM-4:00PM"};
+    printf("Enter one of these slots for your appointment when prompted.\n");
+    for (int i=0;i<10;i++)
+	    printf("%s\n", a[i]);
+    printf("Enter your preferred appointment time slot: ");
     scanf("%s", appointment.time);
+    int flag=0;
+    for (int i=0;i<10;i++) {
+	    if (strcmp(appointment.time,a[i])==0) {
+		    flag=1;
+		    break;
+	    }
+    }
+    if (!flag) {
+	    printf("You entered an invalid time slot.\n");
+    } 
     
+    else {
     // Check if there is already an appointment with the same doctor, date and time
     FILE *file = fopen("appointments.dat", "rb");
     if (file != NULL) {
@@ -102,6 +116,7 @@ void book_appointment(char phone_number[]) {
     write_to_file(appointment);
     
     printf("\nAppointment booked successfully.\n");
+    }
 }
 
 
@@ -116,8 +131,24 @@ void reschedule_appointment(char phone_number[]) {
     scanf(" %[^\n]s", doctor_name);
     printf("Enter the new appointment date (dd/mm/yyyy): ");
     scanf("%s", new_date);
-    printf("Enter the new appointment time: ");
+char *a[]={"11:00AM-11:30AM","11:30AM-12:00PM","12:00PM-12:30PM","12:30PM-1:00PM","1:00PM-1:30PM","1:30PM-2:00PM","2:00PM-2:30PM","2:30PM-3:00PM","3:00PM-3:30PM","3:30PM-4:00PM"};
+    printf("Enter one of these slots for your appointment when prompted.\n");
+    for (int i=0;i<10;i++)
+	    printf("%s\n", a[i]);
+    printf("Enter the new appointment time slot: ");
     scanf("%s", new_time);
+    int flag=0;
+    for (int i=0;i<10;i++) {
+	    if (strcmp(new_time,a[i])==0) {
+		    flag=1;
+		    break;
+	    }
+    }
+    if (!flag) {
+	    printf("You entered an invalid time slot.\n");
+    } 
+    
+    else {
     
     // Check if there is an existing appointment with the same doctor, date and time
     Appointment appointment;
@@ -150,6 +181,7 @@ void reschedule_appointment(char phone_number[]) {
     }
     
     printf("\nNo appointment found with the given doctor name.\n");
+}
 }
 
 
