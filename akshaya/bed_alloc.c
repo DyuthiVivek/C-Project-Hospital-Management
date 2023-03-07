@@ -96,10 +96,3 @@ void ot_discharge(char name[31]){
 				break;}}}
 	fclose(ot);
 }
-
-int main(){
-	char name[31];
-	scanf("%s",name);
-	admit(name);
-	ot_admit(name);
-}

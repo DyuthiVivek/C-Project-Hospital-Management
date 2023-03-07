@@ -52,7 +52,7 @@ void add_stock(int new_stock,char name[20]){
 	int points;
 	int final_stock;
 	char buff[100];
-	char result[10];
+	char result[12];
 	FILE*addstock;
 	addstock=fopen("List_of_medicines","r+");
 	fseek(addstock,0,SEEK_SET);
@@ -104,7 +104,7 @@ void deduct_medicine(char name[20]){
 	int points;
 	int final_stock;
 	char buff[100];
-	char result[10];
+	char result[12];
 	FILE*deductstock;
 	deductstock=fopen("List_of_medicines","r+");
 	fseek(deductstock,0,SEEK_SET);
@@ -118,12 +118,12 @@ void deduct_medicine(char name[20]){
 			fwrite(result,sizeof(final_stock)-1,1,deductstock);
 			break;
 		}
-		}	
+	}	
 	fclose(deductstock);
 }
 int update_cost_meds(int new_cost,char name[20]){
 	char buff[20];
-	char result[10];
+	char result[12];
 	int int1;
 	FILE*update_cost;
 	update_cost=fopen("List_of_medicines","r+");

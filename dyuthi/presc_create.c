@@ -6,12 +6,13 @@
 #include <pharma_fns.h>
 
 
-char *create_presc() //creates prescription with input information for a specific patient, returning name of prescription
+void create_presc() //creates prescription with input information for a specific patient, returning name of prescription
 {
 	char name[31];
 	char dis[20];
 	char med[50];
 	char adv[1000];
+	char presc_file[30];
 	int n,flag = 0;
 	int i=0;
 
@@ -31,7 +32,7 @@ char *create_presc() //creates prescription with input information for a specifi
 	if(flag==0)
 	{
 		printf("No such patient exists\n"); //no patient found
-		return NULL;
+		return;
 	}
 
 	printf("Enter disease/ailment being treated for\n"); //name of disease
@@ -39,11 +40,11 @@ char *create_presc() //creates prescription with input information for a specifi
 	dis[strlen(dis)-1] = 0;
 	dis[10] = '\0';
 
-	strcpy(c[i].presc_file,c[i].name);
-	strcat(c[i].presc_file,"_"); 
-	strcat(c[i].presc_file,dis); //name of prescription file will contain patient name and disease
+	strcpy(presc_file,c[i].name);
+	strcat(presc_file,"_"); 
+	strcat(presc_file,dis); //name of prescription file will contain patient name and disease
 
-	FILE *f = fopen(c[i].presc_file,"w"); //creating prescription file
+	FILE *f = fopen(presc_file,"w"); //creating prescription file
 	int k;
 	while(1)
 	{
@@ -56,14 +57,5 @@ char *create_presc() //creates prescription with input information for a specifi
 	
 	}
 	fclose(f);
-	return c[i].presc_file; //returning name of prescription file
-
-
 }
 
-void main()
-{
-	char *b = create_presc();
-	if(b!=NULL)
-		printf("%s\n",b);
-}

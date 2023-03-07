@@ -264,12 +264,3 @@ void list_appointments_for_doc(char doctor_name[]) {
         printf("No appointments found for the given doctor.\n");
     }
 }
-
-
-void main() {
-	apptmenu("1234567890");
-}
-
-       
-
-
