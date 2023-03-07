@@ -9,14 +9,16 @@ void admit(char name[31]){
 	FILE* beds=fopen("beds","r+");
 	int k=check_patient(name);//cheking if patient is there
 	printf("%ld",ftell(beds));//third column ->name of patient
-	if (k==0){                //second digit ->occupancy status
+	if (k==1){
+		printf("check0");//second digit ->occupancy status
 		return;}          //first digit ->bed num
 	else{   
 		while(fscanf(beds,"%d %d ",&n,&o)!=EOF){
 			if(o==0){  
+			//printf("check1");
 			fseek(beds,5,SEEK_CUR);//changing occupancy status
 			fwrite("1",1,1,beds);
-			fseek(beds,7,SEEK_CUR);//writing the name
+			fseek(beds,2,SEEK_CUR);//writing the name
 			fwrite(name,strlen(name),1,beds);
 			break;}}}
 	printf("%ld",ftell(beds));		
@@ -32,7 +34,7 @@ void discharge(char name[31]){
 		return;}
 	else{
 		while(fscanf(beds,"%d %d",&n,&o)!=EOF){
-			fgets(name,31,beds);
+			fgets(pname,31,beds);
 			if (strcmp(name,pname)==0){
 			fseek(beds,5,SEEK_CUR);
 			fwrite("0",1,1,beds);
@@ -68,7 +70,7 @@ void ot_discharge(char name[31]){
 		return;}
 	else{
 	while(fscanf(ot,"%d %d ",&n,&o)!=EOF){
-			fgets(name,31,ot);
+			fgets(pname,31,ot);
 			if (strcmp(name,pname)==0){
 				fseek(ot,5,SEEK_CUR);
 				fwrite("0",1,1,ot);
