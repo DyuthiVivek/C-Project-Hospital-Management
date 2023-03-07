@@ -24,9 +24,23 @@ void doctor_login(){
 				       		break;
 				       }
 				case 2:{
+						patient b;
+						int n;
+						patient *c = read_patient(&n);
+						b = read_specific_patient(c,n,name);
+
+						printf("Name: %s\n",b.name);
+						printf("Phone: %s\n",b.phone_no);
+						printf("Age: %d\n",b.age);
+						printf("Gender: %c\n",b.gender[0]);
+						printf("Emergency contact name: %s\n",b.e_contact_name);
+						printf("Emergency contact phone number: %s\n",b.e_contact_phone);
+						printf("Name of history file: %s\n",b.history_file);
+						break;
 				       }
 				case 3:{
 						create_presc();
+						break;
 				 	}
 			}}
 		else{
