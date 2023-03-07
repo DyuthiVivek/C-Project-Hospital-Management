@@ -1,6 +1,8 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pharma_fns.h>
+/*
 struct pharma* deduct_medicicne(struct pharma a,int new_stock);
 int check_medicines(char med[20]);
 struct pharma add_medicines(struct pharma a);
@@ -11,6 +13,7 @@ struct pharma {
 	int stock;
 	int cost;
 };
+*/
 int read_medicines(){
 	struct pharma a;
 	printf("Enter name of the medicine\n");

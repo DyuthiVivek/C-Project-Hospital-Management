@@ -5,9 +5,9 @@
 #include <presc_fns.h>
 
 
-char *create_presc()
+char *create_presc() //creates prescription with input information for a specific patient, returning name of prescription
 {
-	char name[30];
+	char name[31];
 	char dis[20];
 	char med[50];
 	char adv[1000];
@@ -15,9 +15,10 @@ char *create_presc()
 	int i=0;
 
 	printf("Enter patient name\n"); //reading patient name 
-	scanf("%s",name);
+	fgets(name,30,stdin);
+	name[strlen(name)-1] = 0;
 
-	patient *c = read_patient(&n);
+	patient *c = read_patient(&n); //reading the list of patients into an array
 	for(; i<n ; i++)
 	{
 		if(strcmp(name,c[i].name)==0) //checking if patient present in records
@@ -32,15 +33,16 @@ char *create_presc()
 		return NULL;
 	}
 
-	printf("Enter disease/ailment being treated for\n");
-	scanf("%s",dis);
-	getchar();
+	printf("Enter disease/ailment being treated for\n"); //name of disease
+	fgets(dis,20,stdin);
+	dis[strlen(dis)-1] = 0;
 	dis[10] = '\0';
+
 	strcpy(c[i].presc_file,c[i].name);
 	strcat(c[i].presc_file,"_"); 
 	strcat(c[i].presc_file,dis); //name of prescription file will contain patient name and disease
 
-	FILE *f = fopen(c[i].presc_file,"w"); 
+	FILE *f = fopen(c[i].presc_file,"w"); //creating prescription file
 
 	while(1)
 	{
@@ -51,10 +53,10 @@ char *create_presc()
 		fprintf(f,"%s",med);
 	}
 	printf("Enter advice\n"); //reading advice
-	fgets(adv, 1000, stdin);
+	fgets(adv, 1000, stdin); 
 	fputs(adv,f);
 	fclose(f);
-	return c[i].presc_file;
+	return c[i].presc_file; //returning name of prescription file
 
 
 }

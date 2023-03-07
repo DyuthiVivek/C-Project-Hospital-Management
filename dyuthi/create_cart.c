@@ -5,14 +5,7 @@
 
 #define STR_SIZE 100
 
-/*
-struct node{
-	char med[STR_SIZE];
-	struct node* next;
-};
-*/
-
-struct node *new_node(char med[STR_SIZE])
+struct node *new_node(char med[STR_SIZE]) //creating new node for linked list
 {
 	//check medicine
 	struct node *t;
@@ -22,7 +15,7 @@ struct node *new_node(char med[STR_SIZE])
 	return t;
 }
 
-void print_cart(struct node *t)
+void print_cart(struct node *t) //printing elements in the linked list
 {
 	if(!t)
 		return;
@@ -30,30 +23,30 @@ void print_cart(struct node *t)
 	print_cart(t->next);
 }
 
-void print_presc_names(char name[STR_SIZE])
+void print_presc_names(char name[STR_SIZE]) //printing name of prescriptions in the patient's name
 {
 	char str[STR_SIZE];
 	char cmd[STR_SIZE];
 #ifdef __linux__
-	sprintf(cmd,"ls %s_*",name);
+	sprintf(cmd,"ls %s_*",name); //list of prescriptions in the same directory
 #elif _WIN32
-	sprintf(cmd,"dir %s_*",name);
+	sprintf(cmd,"dir %s_*",name); //for windows
 #endif
 	FILE *fp=popen(cmd,"r");
 	while(fgets(str,STR_SIZE,fp)) {
-		printf("%s",str);
+		printf("%s",str); //printing them
 	}
 	pclose(fp);
 
 }
 
-struct node *add_medicine_from_presc(struct node *head)
+struct node *add_medicine_from_presc(struct node *head) //lets the patient choose a precription and make the cart from there
 {
 	char presc_name[STR_SIZE];
 	char med[STR_SIZE];
 	FILE *fp;
 	printf("Enter name of prescription you want to use\n");
-	fgets(presc_name,STR_SIZE,stdin);
+	fgets(presc_name,STR_SIZE,stdin); //inputting the name of the prescription
 	presc_name[strlen(presc_name)-1]=0;
 
 	fp = fopen(presc_name,"r");
@@ -62,14 +55,14 @@ struct node *add_medicine_from_presc(struct node *head)
 
 	struct node *t = head;
 	printf("\n***************************************************\n");
-	printf("The medicines in the prescription are:\n\n");
+	printf("The medicines in the prescription are:\n\n"); //printing the list of medicines
 	while(fgets(med,STR_SIZE,fp))
 	{
 		//check medicine
 		med[strlen(med)-1]=0;
 		printf("%s\n",med);
 		if(t) {
-			t-> next = new_node(med);
+			t-> next = new_node(med); //adding each medicine into a linked list
 			t = t->next;
 		} else
 			t = head = new_node(med);
@@ -81,7 +74,7 @@ struct node *add_medicine_from_presc(struct node *head)
 
 }
 
-struct node *add_more(struct node *head)
+struct node *add_more(struct node *head) //adding more medicines to the linked list
 {
 	char med[STR_SIZE];
 	printf("\n***************************************************\n");
@@ -93,7 +86,7 @@ struct node *add_more(struct node *head)
 		struct node *t = head;
 		while(t->next != NULL)
 			t = t->next;
-		t->next = new_node(med);
+		t->next = new_node(med); //adding medicine
 	} else {
 		head = new_node(med);
 	}
@@ -103,24 +96,24 @@ struct node *add_more(struct node *head)
 	return head;
 }
 
-struct node *delete_med(struct node *head)
+struct node *delete_med(struct node *head) //removing medicine from linked list
 {
 	char med[STR_SIZE];
 	printf("\n***************************************************\n");
-	printf("\nEnter medicine name\n");
+	printf("\nEnter medicine name\n"); //inputting name of medicine
 	fgets(med,STR_SIZE,stdin);
 	med[strlen(med)-1]=0;
 
 	struct node *t = head;
 	struct node *prev = NULL;
 
-	for(;t!=NULL && strncmp(med,t->med,strlen(med));t=t->next)
+	for(;t!=NULL && strncmp(med,t->med,strlen(med));t=t->next) //traversing till medicine to delete found
 		prev = t;
 
 	if(!t)
 	{
-		return head;
 		printf("Not found\n");
+		return head;
 
 	}
 	prev->next = t->next;
@@ -181,17 +174,5 @@ struct node *return_cart()
 void main()
 {
 	return_cart();
-	/*
-	char name[STR_SIZE];
-	struct node *head=NULL;
-	fgets(name,STR_SIZE,stdin);
-	name[strlen(name)-1]=0;
-	print_presc_names(name);
-	head = add_medicine_from_presc(head);
-	head = add_more(head);
-	print_cart(head);
-	delete_med(head);
-	print_cart(head);
-	*/
 
 }
