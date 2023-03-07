@@ -163,13 +163,15 @@ struct node *delete_med(struct node *head) //removing medicine from linked list
 
 }
 
-struct node *return_cart()
+struct node *return_cart(char name[31])
 {
-	char name[STR_SIZE];
+	//char name[STR_SIZE];
 	struct node *head=NULL;
+	/*
 	printf("Enter name\n");
 	fgets(name,STR_SIZE,stdin);
 	name[strlen(name)-1]=0;
+	*/
 	print_presc_names(name);
 	head = add_medicine_from_presc(head);
 
@@ -207,8 +209,4 @@ struct node *return_cart()
 		}
 
 	}
-}
-void main()
-{
-return_cart();
 }

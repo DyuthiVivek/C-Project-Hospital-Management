@@ -8,7 +8,6 @@ typedef struct patient{
 	char e_contact_name[30];
 	char e_contact_phone[15];
 	char history_file[35]; //name of file which contains history of patient's illness
-	char presc_file[20]; //name of file with list of precription files
 } patient;
 
 void add_patient();
