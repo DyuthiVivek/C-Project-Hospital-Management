@@ -62,13 +62,20 @@ void ot_admit(char name[31]){
 	if (k==0){
 		return;}
 	else{
-		while(fscanf(ot,"%d %d",&n,&o)!=EOF){
+		for(int j=0;j<15;j++){
+			fscanf(ot,"%d %d",&n,&o);
 			if(o==0){
-				fseek(ot,5,SEEK_CUR);
+				fseek(ot,-1,SEEK_CUR);
 				fwrite("1",1,1,ot);
-				fseek(ot,7,SEEK_CUR);
+				fseek(ot,2,SEEK_CUR);
 				fwrite(name,strlen(name),1,ot);
-				break;}}}
+				fseek(ot,7,SEEK_CUR);
+				break;}
+			else{
+				fseek(ot,4,SEEK_CUR);
+			}
+
+		}}
 	fclose(ot);
 }
 void ot_discharge(char name[31]){
