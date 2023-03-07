@@ -2,12 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pharma_fns.h>
+#include <presc_fns.h>
 /*
-struct pharma* deduct_medicicne(struct pharma a,int new_stock);
+void deduct_medicicne(struct pharma a,int new_stock);
 int check_medicines(char med[20]);
 struct pharma add_medicines(struct pharma a);
 int read_medicines();
-struct pharma add_stock(struct pharma a,int new_stock,char name[20]);
+void add_stock(int new_stock,char name[20]);
+int update_cost_meds(int new_cost,char name[20]);
+struct node* get_med_prescription(struct node*head);
 struct pharma {
 	char name[20];
 	int stock;
@@ -17,7 +20,7 @@ struct pharma {
 int read_medicines(){
 	struct pharma a;
 	printf("Enter name of the medicine\n");
-	scanf("%s",a.name);
+	gets(a.name);
 	if(check_medicines(a.name)==0){
 		printf("Enter the number of units of the medicine\n");
 		scanf("%d",&a.stock);
@@ -30,7 +33,7 @@ int read_medicines(){
 	if(check_medicines(a.name)==1){	
 		printf("Enter the number of units of the medicine\n");
 		scanf("%d",&new_stock);
-		add_stock(a,new_stock,a.name);
+		add_stock(new_stock,a.name);
 		return 0;
 	}			
 }
@@ -44,13 +47,12 @@ struct pharma add_medicines(struct pharma a){
 	fclose(add_med);
 	return a;
 }
-struct pharma add_stock(struct pharma a,int new_stock,char name[20]){
+void add_stock(int new_stock,char name[20]){
 	int initial_stock;
 	int points;
 	int final_stock;
 	char buff[100];
 	char result[10];
-	char c;
 	FILE*addstock;
 	addstock=fopen("List_of_medicines","r+");
 	fseek(addstock,0,SEEK_SET);
@@ -66,7 +68,6 @@ struct pharma add_stock(struct pharma a,int new_stock,char name[20]){
 		}
 		}	
 	fclose(addstock);
-	return a;
 }
 int check_medicines(char med[20]){
 	FILE*check_med;
@@ -77,22 +78,84 @@ int check_medicines(char med[20]){
 	while(fscanf(check_med,"%s %d %d",buff,&int1,&int2)==3){
 		if(strcmp(buff,med)==0){
 			if(int1>0){
+				fclose(check_med);
 	      		        return 1;  //Stock is available
 			}
 			if(int1==0){
+				fclose(check_med);
 				return 2; //stock is unavailable
 			}
 		}
 }
+	fclose(check_med);
 	return 0;//Medicine is unavailable in hospital pharma
 }
-struct pharma* deduct_medicicne(struct pharma a,int new_stock){}
-/*
+struct node* get_med_prescription(struct node*head){
+	struct node*ptr=malloc(sizeof(struct node));
+	ptr=head;
+	while(ptr->med!=NULL){
+		deduct_medicine(ptr->med);
+		ptr=ptr->next;
+	return head;
+	}
+}
+void deduct_medicine(char name[20]){
+	int initial_stock;
+	int points;
+	int final_stock;
+	char buff[100];
+	char result[10];
+	FILE*deductstock;
+	deductstock=fopen("List_of_medicines","r+");
+	fseek(deductstock,0,SEEK_SET);
+	while(fscanf(deductstock,"%s",buff)==1){
+		if(strcmp(buff,name)==0){
+			points=ftell(deductstock)+1;
+			fscanf(deductstock,"%d",&initial_stock);
+			final_stock=initial_stock+1;
+			sprintf(result,"%d",final_stock);
+			fseek(deductstock,points,SEEK_SET);
+			fwrite(result,sizeof(final_stock)-1,1,deductstock);
+			break;
+		}
+		}	
+	fclose(deductstock);
+}
+int update_cost_meds(int new_cost,char name[20]){
+	char buff[20];
+	char result[10];
+	int int1;
+	FILE*update_cost;
+	update_cost=fopen("List_of_medicines","r+");
+	fseek(update_cost,0,SEEK_SET);
+	while(fscanf(update_cost,"%s %d",buff,&int1)==2){
+		if(strcmp(name,buff)==0){
+			sprintf(result,"%d",new_cost);
+			fseek(update_cost,1,SEEK_CUR);
+			fwrite(result,sizeof(new_cost)-1,1,update_cost);
+			break;
+		}
+		}	
+	fclose(update_cost);
+	return 0;
+}
+
 int main(){
 	char med[20];
+	char medname[20];
+	int new_cost;
+	int option;
 	read_medicines();
 	scanf("%s",med);
 	check_medicines(med);
+	printf("Do you want to update the cost of any medicine\n");
+	scanf("%d",&option);
+	if(option==1){
+		printf("Enter name of medicine\n");
+		scanf("%s",medname);
+		printf("Enter the new cost\n");
+		scanf("%d",&new_cost);
+		update_cost_meds(new_cost,medname);
+	}
 	return 0;
 }
-*/
