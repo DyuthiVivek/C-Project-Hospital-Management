@@ -24,6 +24,7 @@ int main()
 		switch(i)
 		{
 			case 1:
+				doctor_login();
 				break;
 			case 2:
 				patient_login();
@@ -31,6 +32,7 @@ int main()
 			case 3:
 				break;
 			case 4:
+				admin_login();
 				break;
 			default:
 				return 0;
