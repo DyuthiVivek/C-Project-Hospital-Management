@@ -9,18 +9,28 @@ void admit(char name[31]){
 	FILE* beds=fopen("beds","r+");
 	int k=check_patient(name);//cheking if patient is there
 	printf("%ld",ftell(beds));//third column ->name of patient
-	if (k==1){
-		printf("check0");//second digit ->occupancy status
+	if (k==0){
+		printf("No such patient exists");//second digit ->occupancy status
 		return;}          //first digit ->bed num
 	else{   
-		while(fscanf(beds,"%d %d ",&n,&o)!=EOF){
+		for(int j=0; j<15; j++)
+		{
+			fscanf(beds,"%d %d",&n,&o);
 			if(o==0){  
 			//printf("check1");
-			fseek(beds,5,SEEK_CUR);//changing occupancy status
+			fseek(beds,-1,SEEK_CUR);//changing occupancy status
 			fwrite("1",1,1,beds);
 			fseek(beds,2,SEEK_CUR);//writing the name
 			fwrite(name,strlen(name),1,beds);
-			break;}}}
+			fseek(beds,7,SEEK_CUR);//writing the name
+			break;
+			}
+			else
+			{
+				fseek(beds,4,SEEK_CUR);//writing the name
+			}
+		}
+	}
 	printf("%ld",ftell(beds));		
 	fclose(beds);
 }
