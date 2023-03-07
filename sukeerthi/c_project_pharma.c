@@ -132,7 +132,7 @@ int update_cost_meds(int new_cost,char name[20]){
 		if(strcmp(name,buff)==0){
 			sprintf(result,"%d",new_cost);
 			fseek(update_cost,1,SEEK_CUR);
-			fwrite(result,sizeof(new_cost)-1,1,update_cost);
+			fwrite(result,1,sizeof(new_cost)-1,update_cost);
 			break;
 		}
 		}	
@@ -145,9 +145,9 @@ int main(){
 	char medname[20];
 	int new_cost;
 	int option;
-	read_medicines();
-	scanf("%s",med);
-	check_medicines(med);
+	//read_medicines();
+	//scanf("%s",med);
+	//check_medicines(med);
 	printf("Do you want to update the cost of any medicine\n");
 	scanf("%d",&option);
 	if(option==1){
