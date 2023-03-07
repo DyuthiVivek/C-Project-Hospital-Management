@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <presc_fns.h>
+#include <pharma_fns.h>
 
 #define STR_SIZE 100
 
@@ -59,13 +60,27 @@ struct node *add_medicine_from_presc(struct node *head) //lets the patient choos
 	while(fgets(med,STR_SIZE,fp))
 	{
 		//check medicine
-		med[strlen(med)-1]=0;
-		printf("%s\n",med);
-		if(t) {
-			t-> next = new_node(med); //adding each medicine into a linked list
-			t = t->next;
-		} else
-			t = head = new_node(med);
+		int k;
+		med[strlen(med)-1] = 0;
+		k = check_medicines(med);
+		switch(k)
+		{
+			case 0:
+				printf("%s is not available in hospital pharmacy\n",med);
+				break;
+			case 1:
+				printf("%s\n",med);
+				if(t) {
+					t-> next = new_node(med); //adding each medicine into a linked list
+					t = t->next;
+				} else
+					t = head = new_node(med);
+				break;
+			case 2:
+				printf("%s is Currently not available in stock\n",med);
+				break;
+
+		}
 		
 	}
 	printf("***************************************************\n");
@@ -80,8 +95,21 @@ struct node *add_more(struct node *head) //adding more medicines to the linked l
 	printf("\n***************************************************\n");
 	printf("Enter medicine name\n");
 	fgets(med,STR_SIZE,stdin);
-	med[strlen(med)-1]=0;
-	//check_med
+	int k;
+	med[strlen(med)-1] = 0;
+	k = check_medicines(med);
+	switch(k)
+	{
+		case 0:
+			printf("%s is not available in hospital pharmacy\n",med);
+			return head;
+		case 1:
+			break;
+		case 2:
+			printf("%s is currently not available in stock\n",med);
+			return head;
+
+	}
 	if(head) {
 		struct node *t = head;
 		while(t->next != NULL)
@@ -117,7 +145,7 @@ struct node *delete_med(struct node *head) //removing medicine from linked list
 
 	}
 	prev->next = t->next;
-	free(t);
+	free(t); //medicine successfully deleted
 	printf("Medicine deleted\n");
 	printf("***************************************************\n");
 	return head;
@@ -168,11 +196,5 @@ struct node *return_cart()
 				return head;
 		}
 
-
 	}
-}
-void main()
-{
-	return_cart();
-
 }

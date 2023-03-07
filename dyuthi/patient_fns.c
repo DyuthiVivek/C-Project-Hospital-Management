@@ -93,8 +93,3 @@ int check_patient(char p[30])
 }
 
 
-
-// update patient
-// delete patient
-// return specific patient
-// print specific patient

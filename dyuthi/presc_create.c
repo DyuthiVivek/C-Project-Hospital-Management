@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <patient_fns.h>
 #include <presc_fns.h>
+#include <pharma_fns.h>
 
 
 char *create_presc() //creates prescription with input information for a specific patient, returning name of prescription
@@ -43,14 +44,28 @@ char *create_presc() //creates prescription with input information for a specifi
 	strcat(c[i].presc_file,dis); //name of prescription file will contain patient name and disease
 
 	FILE *f = fopen(c[i].presc_file,"w"); //creating prescription file
-
+	int k;
 	while(1)
 	{
 		printf("Enter medicine name, n to quit\n"); //reading names of the medicines
 		fgets(med,50,stdin);	
+		med[strlen(med)-1] = 0;
 		if(strncmp(med,"n",1)==0)
 			break;
-		fprintf(f,"%s",med);
+		k = check_medicines(med);
+		switch(k)
+		{
+			case 0:
+				printf("Not available in hospital pharmacy\n");
+				break;
+			case 1:
+				fprintf(f,"%s",med);
+				break;
+			case 2:
+				printf("Currently not available in stock\n");
+				break;
+	
+		}
 	}
 	printf("Enter advice\n"); //reading advice
 	fgets(adv, 1000, stdin); 

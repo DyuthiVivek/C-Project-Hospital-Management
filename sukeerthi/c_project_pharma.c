@@ -87,6 +87,7 @@ int check_medicines(char med[20]){
 	return 0;//Medicine is unavailable in hospital pharma
 }
 struct pharma* deduct_medicicne(struct pharma a,int new_stock){}
+/*
 int main(){
 	char med[20];
 	read_medicines();
@@ -94,3 +95,4 @@ int main(){
 	check_medicines(med);
 	return 0;
 }
+*/
