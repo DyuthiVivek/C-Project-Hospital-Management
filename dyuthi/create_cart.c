@@ -135,12 +135,22 @@ struct node *delete_med(struct node *head) //removing medicine from linked list
 	struct node *t = head;
 	struct node *prev = NULL;
 
+	if(strncmp(med,head->med,strlen(med))==0)
+	{
+		t = head->next;
+		free(head);
+		printf("Medicine deleted\n");
+		printf("***************************************************\n");
+		return t;
+	}
+
 	for(;t!=NULL && strncmp(med,t->med,strlen(med));t=t->next) //traversing till medicine to delete found
 		prev = t;
 
 	if(!t)
 	{
 		printf("Not found\n");
+		printf("***************************************************\n");
 		return head;
 
 	}
@@ -197,4 +207,8 @@ struct node *return_cart()
 		}
 
 	}
+}
+void main()
+{
+return_cart();
 }

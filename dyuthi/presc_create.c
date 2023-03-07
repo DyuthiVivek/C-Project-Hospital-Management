@@ -52,24 +52,9 @@ char *create_presc() //creates prescription with input information for a specifi
 		med[strlen(med)-1] = 0;
 		if(strncmp(med,"n",1)==0)
 			break;
-		k = check_medicines(med);
-		switch(k)
-		{
-			case 0:
-				printf("Not available in hospital pharmacy\n");
-				break;
-			case 1:
-				fprintf(f,"%s",med);
-				break;
-			case 2:
-				printf("Currently not available in stock\n");
-				break;
+		fprintf(f,"%s\n",med);
 	
-		}
 	}
-	printf("Enter advice\n"); //reading advice
-	fgets(adv, 1000, stdin); 
-	fputs(adv,f);
 	fclose(f);
 	return c[i].presc_file; //returning name of prescription file
 
@@ -78,7 +63,7 @@ char *create_presc() //creates prescription with input information for a specifi
 
 void main()
 {
-char *b = create_presc();
+	char *b = create_presc();
 	if(b!=NULL)
 		printf("%s\n",b);
 }
