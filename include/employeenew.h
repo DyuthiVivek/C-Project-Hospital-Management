@@ -1,0 +1,73 @@
+/*struct employee{
+        int id;
+        char name[30];
+        char dob[8];
+        int age;
+        char sex;
+        char dept[20];
+        float salary;
+        char email[35];
+        char phone[10];
+        struct employee * link;
+};
+
+void retrievesalary(int dsalary);
+void updatedept(int did,char dadept[]);
+void updatedob(int did,char dadob[]);
+void updatename(int did,char daname[]);
+void updatesex(int dbs,int das);
+void updateage(int dbage,int daage);
+void updateid(int dbid,int daid);
+void retrieveage(int dage);
+void retrievesex(int dsex);
+void retrievephone(char dphone[]);
+void retrievedob(char ddob[]);
+void updatesalary(int did,int dasa);
+void updateemail(int did,char daemail[]);
+void retrievedept(char ddept[]);
+void retrieveemail(char demail[]);
+void retrievename(char dname[]);
+void retrieveid(int did);
+void print();
+void updatephone(int did,char dap[]);
+//void deletebyname(int did);
+void insertemployee();
+void deletex(struct employee * temp2);
+*/
+struct employee{
+        int id;
+        char name[30];
+        char dob[8];
+        int age;
+        char sex;
+        char dept[20];
+        float salary;
+        char email[35];
+        char phone[10];
+        struct employee * link;
+};
+
+void deletey(int did,char name[],char dob[],int age,char sex, char dept[],float sal,char email[],char phone[]);
+void retrievesalary(int dsalary);
+void updatedept(int did,char dadept[]);
+void updatedob(int did,char dadob[]);
+void updatename(int did,char daname[]);
+void updatesex(int dbs,int das);
+void updateage(int dbage,int daage);
+void updateid(int dbid,int daid);
+void retrieveage(int dage);
+void retrievesex(int dsex);
+void retrievephone(char dphone[]);
+void retrievedob(char ddob[]);
+void updatesalary(int did,int dasa);
+void updateemail(int did,char daemail[]);
+void retrievedept(char ddept[]);
+void retrieveemail(char demail[]);
+void retrievename(char dname[]);
+void retrieveid(int did);
+void print();
+void updatephone(int did,char dap[]);
+void deletebyname(int did);
+void insertemployee();
+void deletex(int did);
+

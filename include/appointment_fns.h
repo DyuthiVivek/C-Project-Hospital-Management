@@ -13,5 +13,6 @@ void reschedule_appointment(char phone_number[]);
 void cancel_appointment(char phone_number[]);
 void list_appointments_for_patient(char phone_number[]);
 void list_appointments_for_doc(char doctor_name[]);
+void apptmenu(char phone_number[]); 
 
 

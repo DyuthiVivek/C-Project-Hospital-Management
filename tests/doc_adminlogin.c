@@ -1,9 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include"employee.h"
-#include"appointment_fns.h"
-#include"patient_fns.h"
+#include<employee.h>
+#include<appointment_fns.h>
+#include<patient_fns.h>
+#include<presc_create.h>
 void doctor_login(){
 		int did;
 		struct employee * x;

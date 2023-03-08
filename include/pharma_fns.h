@@ -4,6 +4,7 @@ struct pharma add_medicines(struct pharma a);
 int read_medicines();
 void add_stock(int new_stock,char name[20]);
 struct node* get_med_prescription(struct node*head);
+int billing(char name[20]);
 struct pharma {
 	char name[20];
 	int stock;

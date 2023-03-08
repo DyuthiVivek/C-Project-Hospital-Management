@@ -3,7 +3,12 @@
 #include <string.h>
 #include <patient_fns.h>
 #include <presc_fns.h>
-#include "patient_login.h"
+#include <patient_login.h>
+#include <pharmacist_login.h>
+#include <appointment_fns.h>
+#include <employeenew.h>
+#include <doc_admin_login.h>
+
 
 
 int main()
@@ -13,7 +18,7 @@ int main()
 		printf("1. Doctor\n");
 		printf("2. Patient\n");
 		printf("3. Pharmacist\n");
-		printf("4. Admin\n\n"); //maybe to check the lit of patients/ doctors?
+		printf("4. Admin\n\n");
 
 		printf("Enter choice\n");
 		char c[2];
@@ -24,15 +29,16 @@ int main()
 		switch(i)
 		{
 			case 1:
-				//doctor_login();
+				doctor_login();
 				break;
 			case 2:
 				patient_login();
 				break;
 			case 3:
+				pharmacist_login();
 				break;
 			case 4:
-				//admin_login();
+				admin_login();
 				break;
 			default:
 				return 0;

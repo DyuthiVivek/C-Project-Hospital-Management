@@ -3,14 +3,17 @@
 #include <string.h>
 #include <patient_fns.h>
 #include <presc_fns.h>
+#include <pharma_fns.h>
+#include <appointment_fns.h>
 
-void show_more_functions(char name[31])
+void show_more_functions(char name[31],char phone[15])
 {
 	while(1)
 	{
 
 		printf("\n1. Check your details\n");
 		printf("2. Buy medicines from prescription\n");
+		printf("3. Manage appointments\n\n");
 
 		printf("Enter choice\n");
 		printf("Enter any other number to quit\n\n");
@@ -37,9 +40,14 @@ void show_more_functions(char name[31])
 
 				break;
 			case 2:
-				return_cart(name);
+				struct node *head = return_cart(name);
+				get_med_prescription(head);
 
 				break;
+
+			case 3:
+				apptmenu(phone);
+
 			default:
 				return;
 		}
@@ -81,13 +89,17 @@ void patient_login()
 				patient *c = read_patient(&n);
 
 				char name[31];
+				printf("Enter your name\n");
 				fgets(name,30,stdin);
 				name[strlen(name)-1]=0;
+
+				patient b;
+				b = read_specific_patient(c,n,name);
 
 				if(check_patient(name))
 				{
 					printf("Logged in successfully\n");
-					show_more_functions(name);
+					show_more_functions(name,b.phone_no);
 				}
 				else
 					printf("No such patient exists\n");
